@@ -6,8 +6,17 @@
 // Inputs various p1 winning scenarios, p2 winning, etc
 // Bot does not block player's wins, just optimizes for its own win
 
-
 void getInput(Board& b, int& col);
+
+int sample[7][6] = {
+  {0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0}
+};
 
 int main(){
     Board b;
@@ -15,6 +24,8 @@ int main(){
     int input;
 
     bool isWinner = false;
+
+    //b.setBoard(&sample);
 
     do {
         b.print();
@@ -37,8 +48,8 @@ int main(){
         }  **/
 
         b.play(input);
-        
-    } while (!b.isDraw() && !isWinner); 
+
+    } while (!b.isDraw() && !isWinner);
 
 
     b.print();

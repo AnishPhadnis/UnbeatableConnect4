@@ -11,12 +11,13 @@ class Board{
         ~Board();
 
         int getNumMoves() const;
+        bool setBoard(int* b);
 
         bool checkRow(int row) const;
         bool checkColumn(int col) const;
         bool isValidPos(int col, int row) const;
         int getCurrPlayer() const;
-        
+
         // add const for win checkers
         bool isVerticalWin(int col, int currPlayer) const;
         bool isHorizontalWin(int col, int currPlayer) const;
@@ -39,9 +40,9 @@ class Board{
         static const string PLAYER1_CHAR;
         static const string PLAYER2_CHAR;
 
-        int board[WIDTH][HEIGHT];
+        int board[HEIGHT][WIDTH];
         int numPosFilled[WIDTH];
-        
+
         int numMoves;
 
 

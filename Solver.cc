@@ -1,6 +1,6 @@
 #include "Solver.h"
 
-const int Solver::DEPTH = 5;
+const int Solver::DEPTH = 10;
 
 Solver::Solver(): numExploredPos(0) {
     int counter = 0;
@@ -23,6 +23,11 @@ int Solver::getNumExploredPos() const { return numExploredPos; }
 
 //int1 = score, int2 = move
 pair<int, int> Solver::negamax(Board& b, int alpha, int beta, int depth) {
+    // cout << "Board with depth: " << depth << endl;
+    // b.print();
+    // cout << "Alpha: " << alpha << " Beta: " << beta << endl;
+    // cout << "--------" << endl;
+
     if(depth == 0) return make_pair(numeric_limits<int>::min(), -1);
 
     numExploredPos++; // Exploring position
@@ -41,7 +46,7 @@ pair<int, int> Solver::negamax(Board& b, int alpha, int beta, int depth) {
     int bestScore = (Board::WIDTH * Board::HEIGHT + 1 - b.getNumMoves()) / 2;
     //int bestScore = (Board::WIDTH * Board::HEIGHT + 1 - b.getNumMoves()) / 2;
     //int score;
-    pair<int, int> score = make_pair(numeric_limits<int>::min(), -1);
+    pair<int, int> result = make_pair(numeric_limits<int>::min(), -1);
     int bestMove = explorePosOrder[0];
 
     if(beta > bestScore){
@@ -61,19 +66,19 @@ pair<int, int> Solver::negamax(Board& b, int alpha, int beta, int depth) {
 
             // Our score will be negative of other player's score
             // Their win is our loss
-            score = (negamax(b2, -beta, -alpha, depth - 1));
-            score.first = -score.first;
+            result = (negamax(b2, -beta, -alpha, depth - 1));
+            result.first = -result.first;
             // Our best possible score (alpha) is their worst possible score
             // Negative because opposite scores
 
             //if(score > bestScore) bestScore = score;
             // Switched ifs ***
-            if(score.first > alpha){ // Maximize our score
-                alpha = score.first;
-                bestMove = score.second;
+            if(result.first > alpha){ // Maximize our score
+                alpha = result.first;
+                bestMove = result.second;
 
             }
-            if(alpha >= beta) return score; // Another way of saying if alpha >= beta
+            if(alpha >= beta) return result; // Another way of saying if alpha >= beta
 
         }
     }

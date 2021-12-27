@@ -8,6 +8,16 @@ Board::Board(): numMoves(0), board{}, numPosFilled{} { }
 
 Board::~Board() { }
 
+bool Board::setBoard(int* b){
+  // for(int i = HEIGHT-1; i >= 0; --i){
+  //   for(int j = 0; j < WIDTH; ++j){
+  //     board[i][j] = b[i][j];
+  //   }
+  // }
+  //copy(&b[0][0], &b[0][0]+WIDTH*HEIGHT, &board[0][0]);
+  return true;
+}
+
 int Board::getNumMoves() const{ return numMoves; }
 
 bool Board::checkRow(int row) const{
@@ -38,7 +48,8 @@ bool Board::canPlay(int col) const {
 void Board::play(int col){
     if(canPlay(col)){
         //board[col][numPosFilled[col]] = getCurrPlayer();
-        board[col][numPosFilled[col]++] = getCurrPlayer();
+        //board[col][numPosFilled[col]++] = getCurrPlayer();
+        board[numPosFilled[col]++][col] = getCurrPlayer();
         numMoves++;
         //numPosFilled[col]++;
 
@@ -53,7 +64,7 @@ bool Board::isVerticalWin(int col, int currPlayer) const{
         return (board[col][numPosFilled[col] - 1] == currPlayer) &&
                (board[col][numPosFilled[col] - 2] == currPlayer) &&
                (board[col][numPosFilled[col] - 3] == currPlayer);
-        
+
         // Wins can only be below next move
     }
 
@@ -62,7 +73,7 @@ bool Board::isVerticalWin(int col, int currPlayer) const{
 
 bool Board::isHorizontalWin(int col, int currPlayer) const{
     int continuousPlayerChar = 0;
-    
+
     // Furthest left/right place required to check
     int leftBound = (col - 3) >= 0 ? col - 3 : 0;
     int rightBound = (col + 3) < WIDTH ? col + 3 : WIDTH - 1;
@@ -93,7 +104,7 @@ bool Board::isDiagonalWin(int col, int currPlayer) const{
     int position[2] = {col, numPosFilled[col]};
 
     // // Count how many continous player tiles in direction from played tile
-    int upperLeft = 0; // Northwest 
+    int upperLeft = 0; // Northwest
     bool uL = false; // Found opponent tile in upperLeft (uL)?
 
     int lowerLeft = 0; // Southwest
@@ -110,7 +121,7 @@ bool Board::isDiagonalWin(int col, int currPlayer) const{
             if( board[position[0] - i][position[1] + i] == currPlayer ) upperLeft++;
             else uL = true;
         }
-            
+
 
         if( isValidPos(position[0] - i, position[1] - i) && !lL){
             if( board[position[0] - i][position[1] - i] == currPlayer ) lowerLeft++;
@@ -153,8 +164,8 @@ void Board::print() const{
 
     cout << endl;
 
-    for(int j = (HEIGHT - 1); j >= 0; --j){
-        for(int i = 0; i < WIDTH; ++i){
+    for(int i = (HEIGHT - 1); i >= 0; --i){
+        for(int j = 0; j < WIDTH; ++j){
             if(board[i][j] == 1) cout << PLAYER1_CHAR;
             else if(board[i][j] == 2) cout << PLAYER2_CHAR;
             else cout << EMPTY_SPOT_CHAR;
@@ -174,4 +185,3 @@ void Board::print() const{
 
     cout << endl;
 }
-
