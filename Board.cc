@@ -101,7 +101,8 @@ bool Board::isHorizontalWin(int col, int currPlayer) const{
 }
 
 bool Board::isDiagonalWin(int col, int currPlayer) const{
-    int position[2] = {col, numPosFilled[col]};
+    //int position[2] = {col, numPosFilled[col]};
+    int position[2] = {numPosFilled[col], col};
 
     // // Count how many continous player tiles in direction from played tile
     int upperLeft = 0; // Northwest
