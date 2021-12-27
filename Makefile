@@ -1,9 +1,9 @@
 objects = main.o Board.o Solver.o
 
-main: $(objects)
-	g++ -o main $(objects)
+main.out: $(objects)
+	g++ -o main.out $(objects)
 	clear
-	./main
+	./main.out
 
 main.o: main.cc	Board.h Solver.h
 	g++ -c main.cc
