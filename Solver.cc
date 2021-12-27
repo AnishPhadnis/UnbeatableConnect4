@@ -85,10 +85,10 @@ pair<int, int> Solver::negamax(Board& b, int alpha, int beta, int depth) {
 int Solver::solve(Board& b){
     numExploredPos = 0;
     int maxScore = numeric_limits<int>::min();
-    int depth = 5;
+    //int depth = 5;
 
     // <score, move>
-    pair<int, int> score = negamax(b, numeric_limits<int>::min(), numeric_limits<int>::max(), depth);
+    pair<int, int> score = negamax(b, numeric_limits<int>::min(), numeric_limits<int>::max(), DEPTH);
 
     //cout << "Play: " << score.second << " with score of " << score.first << endl;
 
