@@ -86,7 +86,7 @@ bool Board::isHorizontalWin(int col, int currPlayer) const{
         }
         if(continuousPlayerChar == 4) return true;
 
-        if(board[i][numPosFilled[col]] == currPlayer){
+        if(board[numPosFilled[col]][i] == currPlayer){
             continuousPlayerChar++;
             //cout << i << " " << continuousPlayerChar << endl;
         } else {
