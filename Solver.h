@@ -19,6 +19,8 @@ class Solver {
 
 
     private:
+        static const int DEPTH;
+        
         int numExploredPos;
         int explorePosOrder[Board::WIDTH];
 

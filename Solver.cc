@@ -1,5 +1,7 @@
 #include "Solver.h"
 
+const int Solver::DEPTH = 5;
+
 Solver::Solver(): numExploredPos(0) {
     int counter = 0;
     int center = floor(Board::WIDTH / 2);
@@ -8,13 +10,13 @@ Solver::Solver(): numExploredPos(0) {
 
     for(int i = 1; i < floor(Board::WIDTH / 2) + 1; ++i){
         explorePosOrder[counter++] = center - i;
-        
+
         if((center + i) < Board::WIDTH){ // Protection against last iteration of loop on even #s
             explorePosOrder[counter++] = center + i;
         }
-        
+
     }
-  
+
 }
 
 int Solver::getNumExploredPos() const { return numExploredPos; }
@@ -45,10 +47,10 @@ pair<int, int> Solver::negamax(Board& b, int alpha, int beta, int depth) {
     if(beta > bestScore){
         beta = bestScore; // More accurate estimate for upperbound
         if(alpha >= beta) // Prune search tree
-            return make_pair(beta, -1); 
-            // When alpha greater than beta, this symbolizes a really good move, such a good move that 
+            return make_pair(beta, -1);
+            // When alpha greater than beta, this symbolizes a really good move, such a good move that
             // we don't have to search it further because the minimizing player would obviously never do it
-            // We return the max possible score which gets translated into the worst possible score for the 
+            // We return the max possible score which gets translated into the worst possible score for the
             // other player when we check every position in the next for loop --> score = -1 * negamax(...)
     }
 
@@ -59,23 +61,23 @@ pair<int, int> Solver::negamax(Board& b, int alpha, int beta, int depth) {
 
             // Our score will be negative of other player's score
             // Their win is our loss
-            score = (negamax(b2, -beta, -alpha, depth - 1)); 
+            score = (negamax(b2, -beta, -alpha, depth - 1));
             score.first = -score.first;
             // Our best possible score (alpha) is their worst possible score
             // Negative because opposite scores
-            
+
             //if(score > bestScore) bestScore = score;
             // Switched ifs ***
             if(score.first > alpha){ // Maximize our score
                 alpha = score.first;
                 bestMove = score.second;
-                
+
             }
             if(alpha >= beta) return score; // Another way of saying if alpha >= beta
-            
+
         }
     }
-        
+
 
     return make_pair(alpha, bestMove);
 }
@@ -87,7 +89,7 @@ int Solver::solve(Board& b){
 
     // <score, move>
     pair<int, int> score = negamax(b, numeric_limits<int>::min(), numeric_limits<int>::max(), depth);
-    
+
     //cout << "Play: " << score.second << " with score of " << score.first << endl;
 
     // If we cannot find any move with a better score with a limited depth approach
@@ -101,7 +103,7 @@ int Solver::solve(Board& b){
     }
 
     return score.second;
-    
+
 }
 
 
@@ -126,10 +128,10 @@ int Solver::negamax(Board& b, int alpha, int beta) {
     if(bestScore > beta){
         beta = bestScore; // More accurate estimate for upperbound
         if(alpha >= beta) // Prune search tree
-            return beta; 
-            // When alpha greater than beta, this symbolizes a really good move, such a good move that 
+            return beta;
+            // When alpha greater than beta, this symbolizes a really good move, such a good move that
             // we don't have to search it further because the minimizing player would obviously never do it
-            // We return the max possible score which gets translated into the worst possible score for the 
+            // We return the max possible score which gets translated into the worst possible score for the
             // other player when we check every position in the next for loop --> score = -1 * negamax(...)
     }
 
@@ -140,18 +142,18 @@ int Solver::negamax(Board& b, int alpha, int beta) {
 
             // Our score will be negative of other player's score
             // Their win is our loss
-            score = -(negamax(b2, -beta, -alpha)); 
+            score = -(negamax(b2, -beta, -alpha));
             // Our best possible score (alpha) is their worst possible score
             // Negative because opposite scores
-            
+
             //if(score > bestScore) bestScore = score;
             // Switched ifs ***
             if(score > alpha) score = alpha; // Maximize our score
             if(alpha >= beta) return score; // Another way of saying if alpha >= beta
-            
+
         }
     }
-        
+
 
     return alpha;
 }
