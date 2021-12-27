@@ -61,9 +61,9 @@ void Board::play(int col){
 
 bool Board::isVerticalWin(int col, int currPlayer) const{
     if(numPosFilled[col] >= 3){
-        return (board[col][numPosFilled[col] - 1] == currPlayer) &&
-               (board[col][numPosFilled[col] - 2] == currPlayer) &&
-               (board[col][numPosFilled[col] - 3] == currPlayer);
+        return (board[numPosFilled[col] - 1][col] == currPlayer) &&
+               (board[numPosFilled[col] - 2][col] == currPlayer) &&
+               (board[numPosFilled[col] - 3][col] == currPlayer);
 
         // Wins can only be below next move
     }
