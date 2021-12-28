@@ -8,13 +8,13 @@ Board::Board(): numMoves(0), board{}, numPosFilled{} { }
 
 Board::~Board() { }
 
-bool Board::setBoard(int* b){
+bool Board::setBoard(int (&b)[6][7]){
   // for(int i = HEIGHT-1; i >= 0; --i){
   //   for(int j = 0; j < WIDTH; ++j){
   //     board[i][j] = b[i][j];
   //   }
   // }
-  //copy(&b[0][0], &b[0][0]+WIDTH*HEIGHT, &board[0][0]);
+  copy(&b[0][0], &b[0][0]+WIDTH*HEIGHT, &board[0][0]);
   return true;
 }
 

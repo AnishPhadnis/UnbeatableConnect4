@@ -11,7 +11,7 @@ class Board{
         ~Board();
 
         int getNumMoves() const;
-        bool setBoard(int* b);
+        bool setBoard(int (&b)[6][7]);
 
         bool checkRow(int row) const;
         bool checkColumn(int col) const;
