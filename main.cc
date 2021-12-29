@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "Solver.h"
+//#include "TestBoards.h"
 #include <iostream>
 
 // Make shell script to simulate various cases with program
@@ -14,7 +15,7 @@ int sample[6][7] = {
   {0, 0, 0, 0, 0, 0, 0},
   {0, 0, 0, 0, 0, 0, 0},
   {0, 0, 0, 0, 0, 0, 0},
-  {1, 0, 0, 0, 0, 0, 1}
+  {1, 0, 0, 2, 0, 0, 1}
 };
 
 
@@ -26,6 +27,7 @@ int main(){
     bool isWinner = false;
 
     b.setBoard(sample);
+
 
     do {
         b.print();

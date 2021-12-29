@@ -165,7 +165,7 @@ void Board::print() const{
 
     cout << endl;
 
-    for(int i = (HEIGHT - 1); i >= 0; --i){
+    for(int i = 0; i < HEIGHT; ++i){
         for(int j = 0; j < WIDTH; ++j){
             if(board[i][j] == 1) cout << PLAYER1_CHAR;
             else if(board[i][j] == 2) cout << PLAYER2_CHAR;
