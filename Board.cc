@@ -1,20 +1,44 @@
 #include "Board.h"
 
 const string Board::EMPTY_SPOT_CHAR = "   ";
+const int Board::EMPTY_SPOT_NUM = 0;
+
 const string Board::PLAYER1_CHAR = " x ";
+const int Board::PLAYER1_NUM = 1;
+
 const string Board::PLAYER2_CHAR = " o ";
+const int Board:: PLAYER2_NUM = 2;
 
 Board::Board(): numMoves(0), board{}, numPosFilled{} { }
 
 Board::~Board() { }
 
 bool Board::setBoard(int (&b)[6][7]){
-  // for(int i = HEIGHT-1; i >= 0; --i){
-  //   for(int j = 0; j < WIDTH; ++j){
-  //     board[i][j] = b[i][j];
-  //   }
-  // }
   copy(&b[0][0], &b[0][0]+WIDTH*HEIGHT, &board[0][0]);
+  numMoves = 0;
+
+  for(int i = 0; i < WIDTH; ++i){
+    int posFilled = 0;
+
+    for(int j = (HEIGHT-1); j >= 0; --j){
+      if(board[j][i] == EMPTY_SPOT_NUM) continue;
+
+      // Gets case where full column is filled
+      posFilled++;
+      //numPosFilled[i] = (HEIGHT - j - 1);
+    }
+    numMoves += posFilled;
+    numPosFilled[i] = posFilled;
+    //numPosFilled[i] = posFilled == 0 ? 0 : posFilled - 1;
+  }
+
+  cout << "Total Moves: " << numMoves << endl;
+  cout << "Num Pos Filled..." << endl;
+
+  for(int i = 0; i < WIDTH; ++i){
+    cout << i << " has " << numPosFilled[i] << endl;
+  }
+
   return true;
 }
 
@@ -49,6 +73,7 @@ void Board::play(int col){
     if(canPlay(col)){
         //board[col][numPosFilled[col]] = getCurrPlayer();
         //board[col][numPosFilled[col]++] = getCurrPlayer();
+        cout << "Board[" << numPosFilled[col] << "][" << col << "]" << endl;
         board[numPosFilled[col]++][col] = getCurrPlayer();
         numMoves++;
         //numPosFilled[col]++;
@@ -167,8 +192,8 @@ void Board::print() const{
 
     for(int i = 0; i < HEIGHT; ++i){
         for(int j = 0; j < WIDTH; ++j){
-            if(board[i][j] == 1) cout << PLAYER1_CHAR;
-            else if(board[i][j] == 2) cout << PLAYER2_CHAR;
+            if(board[i][j] == PLAYER1_NUM) cout << PLAYER1_CHAR;
+            else if(board[i][j] == PLAYER2_NUM) cout << PLAYER2_CHAR;
             else cout << EMPTY_SPOT_CHAR;
         }
         cout << endl;

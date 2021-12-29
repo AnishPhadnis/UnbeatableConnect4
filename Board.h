@@ -37,8 +37,14 @@ class Board{
 
     private:
         static const string EMPTY_SPOT_CHAR;
+        static const int EMPTY_SPOT_NUM;
+
         static const string PLAYER1_CHAR;
+        static const int PLAYER1_NUM;
+
         static const string PLAYER2_CHAR;
+        static const int PLAYER2_NUM;
+
 
         int board[HEIGHT][WIDTH];
         int numPosFilled[WIDTH];
