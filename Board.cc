@@ -84,7 +84,8 @@ void Board::play(int col){
         //board[col][numPosFilled[col]] = getCurrPlayer();
         //board[col][numPosFilled[col]++] = getCurrPlayer();
         //cout << "Board[" << HEIGHT - numPosFilled[col] << "][" << col << "]" << endl;
-        board[numPosFilled[col]++][col] = getCurrPlayer();
+        //board[numPosFilled[col]++][col] = getCurrPlayer();
+        board[nextRowEmpty[col]--][col] = getCurrPlayer();
         numMoves++;
         //numPosFilled[col]++;
 
