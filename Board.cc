@@ -72,8 +72,8 @@ int Board::getCurrPlayer() const {
 
 bool Board::canPlay(int col) const {
     if(checkColumn(col)){
-        return numPosFilled[col] < HEIGHT;
-        // return nextRowEmpty[col] != -1;
+        //return numPosFilled[col] < HEIGHT;
+        return nextRowEmpty[col] != -1;
     }
 
     return false;
