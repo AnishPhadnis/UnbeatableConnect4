@@ -9,7 +9,7 @@ const int Board::PLAYER1_NUM = 1;
 const string Board::PLAYER2_CHAR = " o ";
 const int Board:: PLAYER2_NUM = 2;
 
-Board::Board(): numMoves(0), board{}, numPosFilled{} { }
+Board::Board(): numMoves(0), board{}, numPosFilled{}, nextRowEmpty{WIDTH-1} { }
 
 Board::~Board() { }
 
@@ -19,16 +19,19 @@ bool Board::setBoard(int (&b)[6][7]){
 
   for(int i = 0; i < WIDTH; ++i){
     int posFilled = 0;
+    int emptySpots = HEIGHT - 1;
 
     for(int j = (HEIGHT-1); j >= 0; --j){
       if(board[j][i] == EMPTY_SPOT_NUM) continue;
 
       // Gets case where full column is filled
-      posFilled++;
+      ++posFilled;
+      --emptySpots;
       //numPosFilled[i] = (HEIGHT - j - 1);
     }
     numMoves += posFilled;
     numPosFilled[i] = posFilled;
+    nextRowEmpty[i] = emptySpots;
     //numPosFilled[i] = posFilled == 0 ? 0 : posFilled - 1;
   }
 
@@ -37,6 +40,12 @@ bool Board::setBoard(int (&b)[6][7]){
 
   for(int i = 0; i < WIDTH; ++i){
     cout << i << " has " << numPosFilled[i] << endl;
+  }
+
+  cout << "\nNext Row Empty" << endl;
+
+  for(int i = 0; i < WIDTH; ++i){
+    cout << i << " has " << nextRowEmpty[i] << endl;
   }
 
   return true;
@@ -64,6 +73,7 @@ int Board::getCurrPlayer() const {
 bool Board::canPlay(int col) const {
     if(checkColumn(col)){
         return numPosFilled[col] < HEIGHT;
+        // return nextRowEmpty[col] != -1;
     }
 
     return false;
@@ -73,7 +83,7 @@ void Board::play(int col){
     if(canPlay(col)){
         //board[col][numPosFilled[col]] = getCurrPlayer();
         //board[col][numPosFilled[col]++] = getCurrPlayer();
-        cout << "Board[" << numPosFilled[col] << "][" << col << "]" << endl;
+        //cout << "Board[" << HEIGHT - numPosFilled[col] << "][" << col << "]" << endl;
         board[numPosFilled[col]++][col] = getCurrPlayer();
         numMoves++;
         //numPosFilled[col]++;

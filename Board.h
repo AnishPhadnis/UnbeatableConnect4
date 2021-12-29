@@ -48,6 +48,7 @@ class Board{
 
         int board[HEIGHT][WIDTH];
         int numPosFilled[WIDTH];
+        int nextRowEmpty[WIDTH];
 
         int numMoves;
 
